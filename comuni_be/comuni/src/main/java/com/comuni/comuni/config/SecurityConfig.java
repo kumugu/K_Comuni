@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/register", "/api/users/login").permitAll() // 회원가입 및 로그인 경로 허용
-                        .requestMatchers("/api/characters/**").permitAll()  // 캐릭터 생성 경로 허용
+                        .requestMatchers("/api/gameCharacters/**").permitAll()  // 캐릭터 생성 경로 허용
                         .anyRequest().authenticated() // 그 외의 요청은 인증 필요
                 )
                 .cors(Customizer.withDefaults()); // CORS 기본값 설정 (적용)
