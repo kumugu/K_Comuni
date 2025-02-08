@@ -1,10 +1,10 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { createGameCharacter } from "../../../shared/api/gameCharacterService"
-import "./CreateGameCharacter.css"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createGameCharacter } from "../../../shared/api/gameCharacterService";
+import "./CreateGameCharacter.css";
 
 const CreateGameCharacter = () => {
-  const [formData, setFormData] = useState({
+  const [gameCharacter, setGameCharacter] = useState({
     gameCharacterName: "",
     hairColor: "",
     hairType: "",
@@ -12,131 +12,87 @@ const CreateGameCharacter = () => {
     bodyType: "",
     legColor: "",
     legType: "",
-    strength: 7,
-    health: 10,
-    intelligence: 8,
-    spirit: 6,
-    luck: 5,
-  })
+    strength: "",
+    health: "",
+    intelligence: "",
+    spirit: "",
+    luck: "",
+  });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target
-    const updatedValue = type === "number" ? Math.max(1, Math.min(100, Number(value))) : value
-    setFormData((prev) => ({ ...prev, [name]: updatedValue }))
-  }
+    const { name, value } = e.target;
+    setGameCharacter({
+      ...gameCharacter,
+      [name]: value
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    console.log(gameCharacter); // 입력 값을 콘솔에 출력하여 확인
     try {
-      const userId = localStorage.getItem("userId")
-      await createGameCharacter(userId, formData)
-      alert("캐릭터가 성공적으로 생성되었습니다.")
-      navigate("/lobby")
+      await createGameCharacter(gameCharacter);
+      navigate("/createGameCharacter");
     } catch (error) {
-      console.error("캐릭터 생성에 실패", error)
-      alert("캐릭터 생성에 실패했습니다.")
+      console.error("캐릭터 생성에 실패 했습니다.", error);
     }
-  }
+  };
 
   return (
-    <div className="create-character">
-      <h2>Create Character</h2>
-      <form onSubmit={handleSubmit} className="character-form">
-        <div className="form-group">
-          <label htmlFor="gameCharacterName">Character Name:</label>
-          <input
-            type="text"
-            id="gameCharacterName"
-            name="gameCharacterName"
-            value={formData.gameCharacterName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="hairColor">Hair Color:</label>
-          <input type="text" id="hairColor" name="hairColor" value={formData.hairColor} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="hairType">Hair Type:</label>
-          <input type="text" id="hairType" name="hairType" value={formData.hairType} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="bodyColor">Body Color:</label>
-          <input type="text" id="bodyColor" name="bodyColor" value={formData.bodyColor} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="bodyType">Body Type:</label>
-          <input type="text" id="bodyType" name="bodyType" value={formData.bodyType} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="legColor">Leg Color:</label>
-          <input type="text" id="legColor" name="legColor" value={formData.legColor} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="legType">Leg Type:</label>
-          <input type="text" id="legType" name="legType" value={formData.legType} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="strength">Strength:</label>
-          <input
-            type="number"
-            id="strength"
-            name="strength"
-            value={formData.strength}
-            onChange={handleChange}
-            min="1"
-            max="100"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="health">Health:</label>
-          <input
-            type="number"
-            id="health"
-            name="health"
-            value={formData.health}
-            onChange={handleChange}
-            min="1"
-            max="100"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="intelligence">Intelligence:</label>
-          <input
-            type="number"
-            id="intelligence"
-            name="intelligence"
-            value={formData.intelligence}
-            onChange={handleChange}
-            min="1"
-            max="100"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="spirit">Spirit:</label>
-          <input
-            type="number"
-            id="spirit"
-            name="spirit"
-            value={formData.spirit}
-            onChange={handleChange}
-            min="1"
-            max="100"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="luck">Luck:</label>
-          <input type="number" id="luck" name="luck" value={formData.luck} onChange={handleChange} min="1" max="100" />
-        </div>
-        <button type="submit" className="submit-btn">
-          Create Character
-        </button>
-      </form>
-    </div>
-  )
-}
+    <form onSubmit={handleSubmit} className="create-game-character">
+      <label>
+        Name:
+        <input type="text" name="gameCharacterName" value={gameCharacter.gameCharacterName} onChange={handleChange} />
+      </label>
+      <label>
+        Hair Color:
+        <input type="text" name="hairColor" value={gameCharacter.hairColor} onChange={handleChange} />
+      </label>
+      <label>
+        Hair Type:
+        <input type="text" name="hairType" value={gameCharacter.hairType} onChange={handleChange} />
+      </label>
+      <label>
+        Body Color:
+        <input type="text" name="bodyColor" value={gameCharacter.bodyColor} onChange={handleChange} />
+      </label>
+      <label>
+        Body Type:
+        <input type="text" name="bodyType" value={gameCharacter.bodyType} onChange={handleChange} />
+      </label>
+      <label>
+        Leg Color:
+        <input type="text" name="legColor" value={gameCharacter.legColor} onChange={handleChange} />
+      </label>
+      <label>
+        Leg Type:
+        <input type="text" name="legType" value={gameCharacter.legType} onChange={handleChange} />
+      </label>
+      <label>
+        Strength:
+        <input type="number" name="strength" value={gameCharacter.strength} onChange={handleChange} />
+      </label>
+      <label>
+        Health:
+        <input type="number" name="health" value={gameCharacter.health} onChange={handleChange} />
+      </label>
+      <label>
+        Intelligence:
+        <input type="number" name="intelligence" value={gameCharacter.intelligence} onChange={handleChange} />
+      </label>
+      <label>
+        Spirit:
+        <input type="number" name="spirit" value={gameCharacter.spirit} onChange={handleChange} />
+      </label>
+      <label>
+        Luck:
+        <input type="number" name="luck" value={gameCharacter.luck} onChange={handleChange} />
+      </label>
+      <button type="submit">Create Character</button>
+    </form>
+  );
+};
 
-export default CreateGameCharacter
+export default CreateGameCharacter;

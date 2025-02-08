@@ -8,9 +8,7 @@ const LobbyPage = () => {
     <div className="lobby-page">
       <h1>Welcome to the Lobby</h1>
       <div className="button-container">
-        <button onClick={() => navigate("/create-character")}>Create Character</button>
-        <button onClick={() => navigate("/update-character")}>Update Character</button>
-        <button onClick={() => navigate("/view-character")}>View Character</button>
+        <button onClick={() => navigate("/createGameCharacter")}>Create Character</button>
       </div>
     </div>
   )
