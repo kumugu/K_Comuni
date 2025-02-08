@@ -2,6 +2,8 @@ package com.comuni.comuni.port.inbound.gameCharacter;
 
 import com.comuni.comuni.domain.gameCharacter.GameCharacter;
 
+import java.util.List;
+
 public interface GameCharacterService {
     /**
      * 캐릭터 생성 메서드.
@@ -24,4 +26,10 @@ public interface GameCharacterService {
      * @return 업데이트된 캐릭터 객체
      */
     GameCharacter updateGameCharacter(Long id, GameCharacter gameCharacter);
+
+    /**
+     * 모든 캐릭터 조회 메서드.
+     * @return 모든 캐릭터 객체 리스트
+     */
+    List<GameCharacter> getAllGameCharacters();
 }

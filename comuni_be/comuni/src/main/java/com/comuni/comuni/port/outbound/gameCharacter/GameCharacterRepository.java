@@ -3,6 +3,7 @@ package com.comuni.comuni.port.outbound.gameCharacter;
 import com.comuni.comuni.domain.gameCharacter.GameCharacter;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,4 +22,10 @@ public interface GameCharacterRepository {
      * @return 저장된 캐릭터 객체
      */
     GameCharacter save(GameCharacter gameCharacter);
+
+    /**
+     * 모든 캐릭터 조회 메서드.
+     * @return 모든 캐릭터 객체 리스트
+     */
+    List<GameCharacter> findAll();
 }

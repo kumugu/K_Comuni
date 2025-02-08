@@ -5,6 +5,7 @@ import com.comuni.comuni.port.outbound.gameCharacter.GameCharacterJpaRepository;
 import com.comuni.comuni.port.outbound.gameCharacter.GameCharacterRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -36,5 +37,15 @@ public class JpaGameCharacterRepository implements GameCharacterRepository {
     public GameCharacter save(GameCharacter gameCharacter) {
         // 실제 데이터베이스 저장 로직을 작성합니다.
         return repository.save(gameCharacter);
+    }
+
+    /**
+     * 모든 캐릭터 조회 메서드.
+     * @return 모든 캐릭터 객체 리스트
+     */
+    @Override
+    public List<GameCharacter> findAll() {
+        // 실제 데이터베이스 저장 로직을 작성합니다.
+        return repository.findAll();
     }
 }

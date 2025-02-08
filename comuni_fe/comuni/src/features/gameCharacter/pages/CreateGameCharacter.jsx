@@ -34,7 +34,7 @@ const CreateGameCharacter = () => {
     console.log(gameCharacter); // 입력 값을 콘솔에 출력하여 확인
     try {
       await createGameCharacter(gameCharacter);
-      navigate("/createGameCharacter");
+      navigate("/lobby");
     } catch (error) {
       console.error("캐릭터 생성에 실패 했습니다.", error);
     }

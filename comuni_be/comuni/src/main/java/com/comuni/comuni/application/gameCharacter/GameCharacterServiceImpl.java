@@ -5,6 +5,8 @@ import com.comuni.comuni.port.inbound.gameCharacter.GameCharacterService;
 import com.comuni.comuni.port.outbound.gameCharacter.GameCharacterRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GameCharacterServiceImpl implements GameCharacterService {
 
@@ -74,5 +76,14 @@ public class GameCharacterServiceImpl implements GameCharacterService {
         existingCharacter.setLuck(gameCharacter.getLuck());
 
         return gameCharacterRepository.save(existingCharacter);
+    }
+
+    /**
+     * 모든 캐릭터 조회 메서드.
+     * @return 모든 캐릭터 객체 리스트
+     */
+    @Override
+    public List<GameCharacter> getAllGameCharacters() {
+        return gameCharacterRepository.findAll();
     }
 }
