@@ -29,11 +29,11 @@ interface GameCharacter {
 const CreateGameCharacter: React.FC = () => {
   const [gameCharacter, setGameCharacter] = useState<GameCharacter>({
     gameCharacterName: "",
-    hairColor: "#000000",
+    hairColor: "#ab7272",
     hairType: "short",
-    bodyColor: "#ffffff",
+    bodyColor: "#51ad56",
     bodyType: "normal",
-    legColor: "#000000",
+    legColor: "#7d98c9",
     legType: "normal",
     strength: 50,
     health: 50,
