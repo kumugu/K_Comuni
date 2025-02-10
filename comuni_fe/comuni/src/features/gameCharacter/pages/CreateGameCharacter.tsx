@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createGameCharacter } from "../../../shared/api/gameCharacterService";
 import { toast } from "react-toastify";
@@ -10,6 +9,7 @@ import Button from "../components/ui/button.tsx";
 import Input from "../components/ui/input.tsx";
 import Label from "../components/ui/label.tsx";
 import Slider from "../components/ui/slider.tsx";
+import { ChromePicker } from "react-color"; // ChromePicker 추가
 
 interface GameCharacter {
   gameCharacterName: string;
@@ -26,11 +26,17 @@ interface GameCharacter {
   luck: number;
 }
 
+const colorOption = [
+  "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#F1C40F",
+  "#9B59B6", "#2ECC71", "#E74C3C", "#3498DB", "#1ABC9C",
+  "#F39C12", "#D35400", "#7F8C8D", "#BDC3C7", "#34495E"
+];
+
 const CreateGameCharacter: React.FC = () => {
   const [gameCharacter, setGameCharacter] = useState<GameCharacter>({
     gameCharacterName: "",
     hairColor: "#ab7272",
-    hairType: "short",
+    hairType: "normal",
     bodyColor: "#51ad56",
     bodyType: "normal",
     legColor: "#7d98c9",
@@ -41,6 +47,7 @@ const CreateGameCharacter: React.FC = () => {
     spirit: 50,
     luck: 50,
   });
+
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -53,11 +60,23 @@ const CreateGameCharacter: React.FC = () => {
     }));
   };
 
-  const handleSliderChange = (stat: keyof GameCharacter, value: number) => {
+  const handleColorSelect = (color: string, part: keyof GameCharacter) => {
     setGameCharacter((prev) => ({
       ...prev,
-      [stat]: value,
+      [part]: color,
     }));
+  };
+
+  const handleStatChange = (stat: string, increment: boolean) => {
+    setGameCharacter((prev) => {
+      const newValue = increment
+        ? Math.min(prev[stat] + 10, 100)
+        : Math.max(prev[stat] - 10, 0)
+      return {
+        ...prev,
+        [stat]: newValue,
+      };
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -105,15 +124,16 @@ const CreateGameCharacter: React.FC = () => {
               required
             />
           </div>
-          <div>
-            <Label htmlFor="hairColor">Hair Color</Label>
-            <Input
-              type="color"
-              id="hairColor"
-              name="hairColor"
-              value={gameCharacter.hairColor}
-              onChange={handleChange}
-            />
+          <div className="flex gap-2">
+            {colorOption.map((color) => (
+              <button
+                key={color}
+                type="button"
+                style={{ backgroundColor: color }}
+                className="color-button"
+                onClick={() => handleColorSelect(color, "hairColor")}
+              />
+            ))}
           </div>
           <div>
             <Label htmlFor="hairType">Hair Type</Label>
@@ -125,19 +145,23 @@ const CreateGameCharacter: React.FC = () => {
               className="w-full p-2 border rounded"
             >
               <option value="short">Short</option>
+              <option value="normal">Normal</option>
               <option value="long">Long</option>
-              <option value="curly">Curly</option>
             </select>
           </div>
           <div>
             <Label htmlFor="bodyColor">Body Color</Label>
-            <Input
-              type="color"
-              id="bodyColor"
-              name="bodyColor"
-              value={gameCharacter.bodyColor}
-              onChange={handleChange}
-            />
+            <div className="flex gap-2">
+              {colorOption.map((color) => (
+                <button
+                  key={color}
+                  type="button"
+                  style={{ backgroundColor: color }}
+                  className="color-button"
+                  onClick={() => handleColorSelect(color, "bodyColor")}
+                />
+              ))}
+            </div>
           </div>
           <div>
             <Label htmlFor="bodyType">Body Type</Label>
@@ -155,7 +179,17 @@ const CreateGameCharacter: React.FC = () => {
           </div>
           <div>
             <Label htmlFor="legColor">Leg Color</Label>
-            <Input type="color" id="legColor" name="legColor" value={gameCharacter.legColor} onChange={handleChange} />
+            <div className="flex gap-2">
+              {colorOption.map((color) => (
+                <button
+                  key={color}
+                  type="button"
+                  style={{ backgroundColor: color }}
+                  className="color-button"
+                  onClick={() => handleColorSelect(color, "legColor")}
+                />
+              ))}
+            </div>
           </div>
           <div>
             <Label htmlFor="legType">Leg Type</Label>
@@ -173,16 +207,24 @@ const CreateGameCharacter: React.FC = () => {
           </div>
           {(["strength", "health", "intelligence", "spirit", "luck"] as const).map((stat) => (
             <div key={stat}>
-              <Label htmlFor={`slider-${stat}`}>{stat.charAt(0).toUpperCase() + stat.slice(1)}</Label>
-              <Slider
-                id={`slider-${stat}`}
-                min={0}
-                max={100}
-                step={1}
-                defaultValue={gameCharacter[stat]}
-                onChange={(value) => handleSliderChange(stat, value)}
-              />
-              <span className="text-sm">{gameCharacter[stat]}</span>
+              <Label htmlFor={`stat-${stat}`}>{stat.charAt(0).toUpperCase() + stat.slice(1)}</Label>
+              <div className="flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => handleStatChange(stat, false)}
+                  className="p-2 bg-gray-300 rounded"
+                >
+                  -
+                </button>
+                <span>{gameCharacter[stat]}</span>
+                <button
+                  type="button"
+                  onClick={() => handleStatChange(stat, true)}
+                  className="p-2 bg-gray-300 rounded"
+                >
+                  +
+                </button>
+              </div>
             </div>
           ))}
           <Button type="submit" disabled={isLoading}>
@@ -195,4 +237,3 @@ const CreateGameCharacter: React.FC = () => {
 };
 
 export default CreateGameCharacter;
-

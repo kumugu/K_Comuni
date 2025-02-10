@@ -10,17 +10,18 @@ interface SliderProps {
   id?: string;
 }
 
-const Slider: React.FC<SliderProps> = ({ min, max, step, defaultValue, onChange, id }) => {
+// Slider 컴포넌트 수정
+const Slider: React.FC<SliderProps> = ({ min, max, step, value, onChange, id }) => {
   return (
     <SliderPrimitive.Root
       className="relative flex items-center select-none touch-none w-full h-5"
-      defaultValue={[defaultValue]}
+      value={[value]}  // 값 배열로 전달
       max={max}
       min={min}
       step={step}
       onValueChange={(values) => {
         if (values.length > 0) {
-          onChange(values[0]);
+          onChange(values[0]);  // 첫 번째 값을 onChange로 전달
         }
       }}
       {...(id ? { id } : {})}
@@ -35,5 +36,14 @@ const Slider: React.FC<SliderProps> = ({ min, max, step, defaultValue, onChange,
     </SliderPrimitive.Root>
   );
 };
+
+// handleSliderChange에서 상태 업데이트
+const handleSliderChange = (stat: string, value: number) => {
+  setGameCharacter((prev) => ({
+    ...prev,
+    [stat]: value,  // stat 값에 해당하는 속성만 업데이트
+  }));
+};
+
 
 export default Slider;

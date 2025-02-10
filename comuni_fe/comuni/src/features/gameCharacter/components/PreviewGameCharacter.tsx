@@ -1,8 +1,7 @@
 import React from "react"
 import { useEffect, useRef } from "react"
 import * as THREE from "three"
-// @ts-ignore
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 
 interface PreviewGameCharacterProps {
   hairColor: string
@@ -36,76 +35,81 @@ const PreviewGameCharacter: React.FC<PreviewGameCharacterProps> = ({
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.enableDamping = true
 
-    // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
     scene.add(ambientLight)
+
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
     directionalLight.position.set(5, 5, 5)
     scene.add(directionalLight)
 
-    let hairMesh: THREE.Mesh, bodyMesh: THREE.Mesh, leftLegMesh: THREE.Mesh, rightLegMesh: THREE.Mesh
+    const hairMesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), new THREE.MeshStandardMaterial())
+    hairMesh.position.set(0, 1.2, 0)
+    scene.add(hairMesh)
 
-    const createHairMesh = (type: string) => {
-      const geometry =
-        type === "short"
-          ? new THREE.SphereGeometry(0.5, 32, 32)
-          : type === "long"
-          ? new THREE.BoxGeometry(0.5, 1, 0.5)
-          : new THREE.ConeGeometry(0.5, 1, 32)
-      const material = new THREE.MeshStandardMaterial({ color: hairColor })
-      const mesh = new THREE.Mesh(geometry, material)
-      mesh.position.set(0, 1.2, 0)
-      return mesh
+    const bodyMesh = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.5, 0.4), new THREE.MeshStandardMaterial())
+    scene.add(bodyMesh)
+
+    const leftLegMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 1, 32), new THREE.MeshStandardMaterial())
+    const rightLegMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 1, 32), new THREE.MeshStandardMaterial())
+    leftLegMesh.position.set(-0.3, -1.25, 0)
+    rightLegMesh.position.set(0.3, -1.25, 0)
+    scene.add(leftLegMesh)
+    scene.add(rightLegMesh)
+
+    const updateCharacterParts = () => {
+      // Hair
+      switch (hairType) {
+        case "short":
+          hairMesh.scale.set(1, 0.5, 1) // 짧은 머리
+          break
+        case "long":
+          hairMesh.scale.set(1, 1.5, 1) // 긴 머리
+          break
+        default:
+          hairMesh.scale.set(1, 1, 1) // 기본 길이
+      }
+      hairMesh.material.color.set(hairColor)
+    
+      // Body
+      switch (bodyType) {
+        case "slim":
+          bodyMesh.scale.set(0.8, 1.2, 0.8) // 슬림한 몸
+          break
+        case "muscular":
+          bodyMesh.scale.set(1.5, 1.2, 1.5) // 근육형 몸
+          break
+        default:
+          bodyMesh.scale.set(1, 1, 1) // 기본 크기
+      }
+      bodyMesh.material.color.set(bodyColor)
+    
+       // Legs
+      let legHeight;
+
+      switch (legType) {
+        case "short":
+          legHeight = 0.8; // short 다리 높이
+          break;
+        case "long":
+          legHeight = 1.5; // long 다리 높이
+          break;
+        default:
+          legHeight = 1; // 기본 다리 높이
+      }
+
+      // 높이값을 geometry에 적용
+      leftLegMesh.geometry = new THREE.CylinderGeometry(0.15, 0.15, legHeight, 32);
+      rightLegMesh.geometry = new THREE.CylinderGeometry(0.15, 0.15, legHeight, 32);
+
+      leftLegMesh.material.color.set(legColor);
+      rightLegMesh.material.color.set(legColor);
     }
-
-    const createBodyMesh = (type: string) => {
-      const geometry =
-        type === "slim"
-          ? new THREE.BoxGeometry(0.8, 1.5, 0.4)
-          : type === "muscular"
-          ? new THREE.BoxGeometry(1.2, 1.5, 0.6)
-          : new THREE.SphereGeometry(0.8, 32, 32)
-      const material = new THREE.MeshStandardMaterial({ color: bodyColor })
-      return new THREE.Mesh(geometry, material)
-    }
-
-    const createLegMesh = (type: string) => {
-      const geometry =
-        type === "thin"
-          ? new THREE.CylinderGeometry(0.15, 0.15, 1, 32)
-          : type === "muscular"
-          ? new THREE.CylinderGeometry(0.25, 0.2, 1, 32)
-          : new THREE.BoxGeometry(0.3, 1, 0.3)
-      const material = new THREE.MeshStandardMaterial({ color: legColor })
-      return new THREE.Mesh(geometry, material)
-    }
-
-    const updateCharacter = () => {
-      // Remove previous meshes
-      scene.clear()
-      scene.add(ambientLight, directionalLight)
-
-      // Update hair
-      hairMesh = createHairMesh(hairType)
-      scene.add(hairMesh)
-
-      // Update body
-      bodyMesh = createBodyMesh(bodyType)
-      scene.add(bodyMesh)
-
-      // Update legs
-      leftLegMesh = createLegMesh(legType)
-      rightLegMesh = createLegMesh(legType)
-      leftLegMesh.position.set(-0.3, -1.25, 0)
-      rightLegMesh.position.set(0.3, -1.25, 0)
-      scene.add(leftLegMesh)
-      scene.add(rightLegMesh)
-    }
+    
+    updateCharacterParts()
 
     const animate = () => {
       requestAnimationFrame(animate)
       controls.update()
-      updateCharacter() // 실시간 업데이트 반영
       renderer.render(scene, camera)
     }
 
@@ -121,3 +125,4 @@ const PreviewGameCharacter: React.FC<PreviewGameCharacterProps> = ({
 }
 
 export default PreviewGameCharacter
+
