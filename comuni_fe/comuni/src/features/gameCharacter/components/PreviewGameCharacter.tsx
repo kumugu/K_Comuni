@@ -90,7 +90,7 @@ const PreviewGameCharacter: React.FC<PreviewGameCharacterProps> = ({
       rightLegMesh = createLegMesh(legType, legColor)
 
       // Position meshes
-      hairMesh.position.set(0, 1.2, 0)
+      hairMesh.position.set(0, 0.5, 0)
       bodyMesh.position.set(0, -0.5, 0)
       leftLegMesh.position.set(-0.3, -1.25, 0)
       rightLegMesh.position.set(0.3, -1.25, 0)

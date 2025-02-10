@@ -198,9 +198,9 @@ const CreateGameCharacter: React.FC = () => {
               onChange={handleChange}
               className="w-full p-2 border rounded"
             >
-              <option value="short">Short</option>
+              <option value="thin">Thin</option>
               <option value="normal">Normal</option>
-              <option value="long">Long</option>
+              <option value="muscular">Muscular</option>
             </select>
           </div>
           {(["strength", "health", "intelligence", "spirit", "luck"] as const).map((stat) => (
