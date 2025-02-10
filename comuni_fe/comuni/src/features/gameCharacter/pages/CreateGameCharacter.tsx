@@ -8,8 +8,6 @@ import PreviewGameCharacter from "../components/PreviewGameCharacter.tsx";
 import Button from "../components/ui/button.tsx";
 import Input from "../components/ui/input.tsx";
 import Label from "../components/ui/label.tsx";
-import Slider from "../components/ui/slider.tsx";
-import { ChromePicker } from "react-color"; // ChromePicker 추가
 
 interface GameCharacter {
   gameCharacterName: string;
