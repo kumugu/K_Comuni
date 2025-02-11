@@ -28,6 +28,13 @@ public interface GameCharacterService {
     GameCharacter updateGameCharacter(Long id, GameCharacter gameCharacter);
 
     /**
+     * 캐릭터 삭제 메서드.
+     * @param id 삭제할 캐릭터의 ID
+     * @return 삭제할 캐릭터 객체
+     */
+    GameCharacter deleteGameCharacter(Long id);
+
+    /**
      * 모든 캐릭터 조회 메서드.
      * @return 모든 캐릭터 객체 리스트
      */

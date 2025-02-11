@@ -79,6 +79,25 @@ public class GameCharacterServiceImpl implements GameCharacterService {
     }
 
     /**
+     * ID로 캐릭터 삭제 메서드.
+     * @param id 삭제할 캐릭터의 ID
+     * @return 삭제된 캐릭터 객체
+     * @throws RuntimeException 캐릭터를 찾을 수 없는 경우
+     */
+    @Override
+    public GameCharacter deleteGameCharacter(Long id) {
+        // 캐릭터 삭제 로직
+        GameCharacter  existingCharacter = gameCharacterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(("Character not found")));
+        // 캐릭터 삭제
+        gameCharacterRepository.delete(existingCharacter);
+
+        // 삭제된 캐릭터의 ID 반환
+        return existingCharacter;
+    }
+
+
+    /**
      * 모든 캐릭터 조회 메서드.
      * @return 모든 캐릭터 객체 리스트
      */

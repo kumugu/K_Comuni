@@ -52,6 +52,19 @@ public class GameCharacterController {
         return ResponseEntity.ok(gameCharacterService.updateGameCharacter(id,gameCharacter));
     }
 
+
+    /**
+     * 캐릭터 삭제 요청을 처리하는 메서드.
+     * @param id 삭제할 캐릭터의 ID
+     * @return 삭제된 캐릭터 객체와 HTTP 상태 코드
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<GameCharacter> deleteCharacter(@PathVariable Long id) {
+        gameCharacterService.deleteGameCharacter(id);
+        return ResponseEntity.noContent().build();  // 삭제 후 204 상태 코드 반환
+    }
+
+
     /**
      * 모든 캐릭터 조회 요청을 처리하는 메서드.
      * @return 모든 캐릭터 객체 리스트와 HTTP 상태 코드

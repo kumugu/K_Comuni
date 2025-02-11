@@ -40,6 +40,15 @@ public class JpaGameCharacterRepository implements GameCharacterRepository {
     }
 
     /**
+     * 캐릭터 삭제 메서드.
+     * @param gameCharacter 삭제할 캐릭터 객체
+     */
+    @Override
+    public void delete(GameCharacter gameCharacter) {
+        repository.delete(gameCharacter);
+    }
+
+    /**
      * 모든 캐릭터 조회 메서드.
      * @return 모든 캐릭터 객체 리스트
      */

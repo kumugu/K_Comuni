@@ -24,8 +24,14 @@ public interface GameCharacterRepository {
     GameCharacter save(GameCharacter gameCharacter);
 
     /**
+     * 캐릭터 삭제 메서드.
+     */
+    void delete(GameCharacter existingCharacter);
+
+    /**
      * 모든 캐릭터 조회 메서드.
      * @return 모든 캐릭터 객체 리스트
      */
     List<GameCharacter> findAll();
 }
+
