@@ -8,6 +8,7 @@ import RegisterPage from "./features/auth/pages/RegisterPage";
 import LobbyPage from "./pages/LobbyPage.tsx";
 import CreateGameCharacter from "./features/gameCharacter/pages/CreateGameCharacter.tsx";
 import EditGameCharacter from "./features/gameCharacter/pages/EditGameCharacter.tsx";
+import DeleteGameCharacter from "./features/gameCharacter/pages/DeleteGameCharacter.tsx";
 import SelectGameCharacter from "./features/gameCharacter/pages/SelectGameCharacter";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/lobby" element={<LobbyPage selectedGameCharacter={selectedGameCharacter} />} />
           <Route path="/createGameCharacter" element={<CreateGameCharacter />} />
           <Route path="/editGameCharacter" element={<EditGameCharacter />} />
+          <Route path="/deleteGameCharacter" element={<DeleteGameCharacter />} />
           <Route path="/selectGameCharacter" element={<SelectGameCharacter setSelectedGameCharacter={setSelectedGameCharacter} />} />
         </Routes>
       </Router>

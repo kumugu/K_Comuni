@@ -13,6 +13,7 @@ const LobbyPage = ({ selectedGameCharacter }) => {
       <div className="button-container">
         <button onClick={() => navigate("/createGameCharacter")}>Create Character</button>
         <button onClick={() => navigate("/editGameCharacter")}>Edit Character</button>
+        <button onClick={() => navigate("/deleteGameCharacter")}>Delete Character</button>
         <button onClick={() => navigate("/selectGameCharacter")}>Select Character</button>
       </div>
 

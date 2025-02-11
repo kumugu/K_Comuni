@@ -1,0 +1,69 @@
+/* 페이지 전체 스타일 */
+.delete-game-character-container {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* 캐릭터 목록 스타일 */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    text-align: center; /* 내용 가운데 정렬 */
+}
+
+li:hover {
+    background-color: #f0f0f0;
+}
+
+/* 캐릭터 이름 스타일 */
+li span {
+    font-size: 1.2rem;
+    color: #333;
+    flex-grow: 1; /* 남는 공간을 채우도록 설정 */
+}
+
+/* 삭제 버튼 스타일 */
+button {
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-left: 10px; /* 간격 조정 */
+}
+
+button:hover {
+    background-color: #c0392b;
+}
+
+button:focus {
+    outline: none;
+}

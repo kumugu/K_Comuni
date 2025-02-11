@@ -7,7 +7,7 @@ export const createGameCharacter = async (gameChracter) => {
                 "Content-Type": "application/json"
             }
         });
-        return response.data; // response 데이터를 반환
+        return response.data; 
     } catch (error) {
         throw error;
     }
@@ -26,9 +26,18 @@ export const updateGameCharacter = async (id, gameChracter) => {
     try {
         const response = await axios.put(`http://localhost:8080/api/gameCharacters/${id}`, gameChracter, {
             headers: {
-                "Content-Type": "application/json" // Content-Type 오타 수정
+                "Content-Type": "application/json" 
             }
         });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteGameCharacter = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:8080/api/gameCharacters/${id}`);
         return response.data;
     } catch (error) {
         throw error;
@@ -43,3 +52,4 @@ export const getAllGameCharacters = async () => {
         throw error;
     }
 };
+
