@@ -5,7 +5,7 @@ import store from "./app/store";
 import LandingPage from "./features/landing/pages/LandingPage";
 import LoginPage from "./features/auth/pages/LoginPage";
 import RegisterPage from "./features/auth/pages/RegisterPage";
-import LobbyPage from "./pages/LobbyPage";
+import LobbyPage from "./pages/LobbyPage.tsx";
 import CreateGameCharacter from "./features/gameCharacter/pages/CreateGameCharacter.tsx";
 import EditGameCharacter from "./features/gameCharacter/pages/EditGameCharacter.tsx";
 import SelectGameCharacter from "./features/gameCharacter/pages/SelectGameCharacter";

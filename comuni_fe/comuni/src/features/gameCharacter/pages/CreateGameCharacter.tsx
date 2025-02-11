@@ -203,6 +203,7 @@ const CreateGameCharacter: React.FC = () => {
               <option value="muscular">Muscular</option>
             </select>
           </div>
+          
           {(["strength", "health", "intelligence", "spirit", "luck"] as const).map((stat) => (
             <div key={stat}>
               <Label htmlFor={`stat-${stat}`}>{stat.charAt(0).toUpperCase() + stat.slice(1)}</Label>
