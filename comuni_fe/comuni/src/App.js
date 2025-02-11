@@ -7,7 +7,7 @@ import LoginPage from "./features/auth/pages/LoginPage";
 import RegisterPage from "./features/auth/pages/RegisterPage";
 import LobbyPage from "./pages/LobbyPage";
 import CreateGameCharacter from "./features/gameCharacter/pages/CreateGameCharacter.tsx";
-import EditGameCharacter from "./features/gameCharacter/pages/EditGameCharacter";
+import EditGameCharacter from "./features/gameCharacter/pages/EditGameCharacter.tsx";
 import SelectGameCharacter from "./features/gameCharacter/pages/SelectGameCharacter";
 
 function App() {
